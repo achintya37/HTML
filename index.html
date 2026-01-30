@@ -264,7 +264,8 @@
             font-size: 0.9rem;
             word-wrap: break-word;
         }
-              /* ক্লোজ বাটন */
+
+        /* ক্লোজ বাটন */
         .close-card {
             position: absolute;
             top: 10px;
@@ -319,7 +320,7 @@
 
         .correct { background-color: #d4edda !important; border: 1px solid #c3e6cb !important; color: #155724; }
         .wrong { background-color: #f8d7da !important; border: 1px solid #f5c6cb !important; color: #721c24; }
-
+        
         .submit-btn {
             width: 100%;
             background: linear-gradient(45deg, #11998e, #38ef7d);
@@ -452,4 +453,124 @@
                 <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>transition<span class="meaning">গতি</span></h3><p class="details">স্মুথ এফেক্ট।</p><div class="more-info"><div class="code-block">transition: 0.3s;</div></div></div>
                 <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>transform<span class="meaning">রূপ</span></h3><p class="details">ঘোরানো/বড় করা।</p><div class="more-info"><div class="code-block">transform: scale(1.1);</div></div></div>
                 <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>list-style<span class="meaning">লিস্ট</span></h3><p class="details">বুলেট বাদ।</p><div class="more-info"><div class="code-block">list-style: none;</div></div></div>
-                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>flex<span class="meaning">ফ্লেক্স</span></h3><p class="details">সহজ লেআ
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>flex<span class="meaning">ফ্লেক্স</span></h3><p class="details">সহজ লেআউট।</p><div class="more-info"><div class="code-block">display: flex;</div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="quiz-zone">
+        <h2 style="text-align: center; color: var(--primary);">প্র্যাকটিস কুইজ</h2>
+        
+        <form id="quizForm">
+            <div class="question-box">
+                <div class="question-text">১. HTML এর কাজ কী?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="c"> গঠন তৈরি করা</label>
+                    <label><input type="radio" name="q1" value="w"> ডিজাইন করা</label>
+                    <label><input type="radio" name="q1" value="w"> লজিক তৈরি</label>
+                </div>
+            </div>
+            <div class="question-box">
+                <div class="question-text">২. ব্যাকগ্রাউন্ড কালার দেওয়ার CSS কোনটি?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="w"> color: red;</label>
+                    <label><input type="radio" name="q2" value="c"> background-color: red;</label>
+                    <label><input type="radio" name="q2" value="w"> bg: red;</label>
+                </div>
+            </div>
+            <div class="question-box"><div class="question-text">৩. সবচেয়ে বড় হেডিং?</div><div class="options"><label><input type="radio" name="q3" value="c"> h1</label><label><input type="radio" name="q3" value="w"> h6</label></div></div>
+            <div class="question-box"><div class="question-text">৪. লাইন ব্রেক?</div><div class="options"><label><input type="radio" name="q4" value="c"> br</label><label><input type="radio" name="q4" value="w"> lb</label></div></div>
+            
+             <div class="question-box"><div class="question-text">৫. লেখা বোল্ড?</div><div class="options"><label><input type="radio" name="q5" value="c"> b</label><label><input type="radio" name="q5" value="w"> bold</label></div></div>
+            <div class="question-box"><div class="question-text">৬. ইমেজ ট্যাগ?</div><div class="options"><label><input type="radio" name="q6" value="c"> img</label><label><input type="radio" name="q6" value="w"> image</label></div></div>
+            <div class="question-box"><div class="question-text">৭. লিঙ্ক তৈরি?</div><div class="options"><label><input type="radio" name="q7" value="c"> a</label><label><input type="radio" name="q7" value="w"> link</label></div></div>
+            <div class="question-box"><div class="question-text">৮. ফন্টের সাইজ?</div><div class="options"><label><input type="radio" name="q8" value="c"> font-size</label><label><input type="radio" name="q8" value="w"> text-size</label></div></div>
+            <div class="question-box"><div class="question-text">৯. লেখার রং?</div><div class="options"><label><input type="radio" name="q9" value="c"> color</label><label><input type="radio" name="q9" value="w"> text-color</label></div></div>
+            <div class="question-box"><div class="question-text">১০. CSS মানে?</div><div class="options"><label><input type="radio" name="q10" value="c"> Cascading Style Sheets</label><label><input type="radio" name="q10" value="w"> Creative Style</label></div></div>
+
+            <button type="button" class="submit-btn" onclick="submitQuiz()">ফলাফল দেখুন</button>
+            <div id="quizResult" style="text-align:center; margin-top:15px; font-weight:bold; font-size:1.2rem;"></div>
+        </form>
+    </div>
+
+    <div class="container" id="code-editor">
+        <h2 style="color:white; text-align:center;">Practical Practice (Live)</h2>
+        <p style="color:#ccc; text-align:center; font-size:0.9rem;">নিচে কোড লিখুন, সাথে সাথে রেজাল্ট দেখুন</p>
+        <textarea id="liveCode" onkeyup="runCode()">&lt;h1&gt;হ্যালো!&lt;/h1&gt;
+&lt;button&gt;ক্লিক করুন&lt;/button&gt;
+&lt;style&gt;
+  h1 { color: #00e676; }
+  button { padding: 10px; background: orange; border: none; }
+&lt;/style&gt;</textarea>
+        <iframe id="preview"></iframe>
+    </div>
+
+    <footer>
+        &copy; ২০২৬ Tikarkhanji JNYCTSD <br> এলাকার সর্ববৃহৎ কম্পিউটার ট্রেনিং সেন্টার
+    </footer>
+
+    <script>
+        // ১. মোবাইল মেনু টগল
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+
+        // ২. কার্ড জুম/পপ-আপ
+        function toggleCard(card) {
+            if (card.classList.contains('active')) {
+                card.classList.remove('active');
+            } else {
+                // অন্য সব কার্ড বন্ধ করুন
+                document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            }
+        }
+
+        // ৩. কুইজ রেজাল্ট
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const questions = form.querySelectorAll('.question-box');
+            let score = 0;
+
+            questions.forEach(q => {
+                const inputs = q.querySelectorAll('input');
+                let answered = false;
+                inputs.forEach(input => {
+                    input.parentElement.classList.remove('correct', 'wrong');
+                    if (input.checked) {
+                        answered = true;
+                        if (input.value === 'c') {
+                            score++;
+                            input.parentElement.classList.add('correct');
+                        } else {
+                            input.parentElement.classList.add('wrong');
+                            // সঠিক উত্তর দেখিয়ে দিন
+                            q.querySelector('input[value="c"]').parentElement.classList.add('correct');
+                        }
+                    }
+                });
+                if (!answered) {
+                    q.querySelector('input[value="c"]').parentElement.classList.add('correct');
+                }
+            });
+
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = "আপনার স্কোর: " + score + " / 10";
+            resultDiv.style.color = score > 5 ? "green" : "red";
+        }
+
+        // ৪. লাইভ এডিটর
+        function runCode() {
+            const code = document.getElementById('liveCode').value;
+            const frame = document.getElementById('preview').contentWindow.document;
+            frame.open();
+            frame.write(code);
+            frame.close();
+        }
+        
+        // শুরুতে একবার রান হবে
+        window.onload = runCode;
+    </script>
+</body>
+</html>
