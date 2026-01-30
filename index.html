@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tikarkhanji JNYCTSD - লার্নিং অ্যাপ</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ================== গ্লোবাল সেটিংস ================== */
+        :root {
+            --primary: #4361ee;
+            --html-color: #e34f26;
+            --css-color: #264de4;
+            --glass: rgba(255, 255, 255, 0.95);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            overflow-x: hidden;
+            padding-top: 70px; /* মেনুবারের জন্য জায়গা */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* ================== রেস্পন্সিভ মেনুবার ================== */
+        nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .logo { 
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            color: #333; 
+            flex-shrink: 0;
+        }
+        .logo span { color: var(--primary); }
+
+        /* ডেস্কটপ মেনু লিঙ্ক */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* হ্যামবার্গার আইকন (মোবাইলের জন্য) */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* মোবাইল রেস্পন্সিভ সিএসএস */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* শুরুতে লুকানো */
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                text-align: center;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                padding-bottom: 20px;
+            }
+
+            .nav-links.active {
+                display: flex; /* হ্যামবার্গার ক্লিক করলে দেখাবে */
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 10px 0;
+                font-size: 1.1rem;
+                border-bottom: 1px solid #eee;
+                width: 90%;
+                margin: 5px auto;
+            }
+
+            .hamburger { display: block; }
+            
+            .institute-name { font-size: 2rem !important; }
+            .tagline { font-size: 0.8rem; }
+        }
+
+        /* ================== হিরো সেকশন ================== */
+        .hero {
+            text-align: center;
+            padding: 50px 15px;
+            color: white;
+        }
+
+        .institute-name {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0 #000;
+            margin-bottom: 10px;
+            animation: colorPop 3s infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes colorPop {
+            0% { color: #fff; } 33% { color: #ffeb3b; } 66% { color: #00e676; } 100% { color: #ff5252; }
+        }
+
+        .tagline {
+            background: rgba(0,0,0,0.4);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* ================== কার্ড ডিজাইন ================== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        
+        .section-header {
+            text-align: center;
+            background: rgba(255,255,255,0.25);
+            padding: 12px;
+            border-radius: 12px;
+            margin: 40px 0 20px;
+            backdrop-filter: blur(5px);
+            color: white;
+            font-size: 1.4rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            font-weight: 700;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* মোবাইলে ছোট কার্ড */
+            gap: 15px;
+        }
+
+        @media (min-width: 600px) {
+            .grid-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        }
+
+        .card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* কার্ড পপ-আপ (Zoom) */
+        .card.active {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 9999;
+            box-shadow: 0 0 0 100vh rgba(0,0,0,0.85);
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 3px solid white;
+            padding: 25px;
+        }
+
+        .html-card { border-top: 4px solid var(--html-color); }
+        .css-card { border-top: 4px solid var(--css-color); }
+
+        .card h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+            color: #222;
+        }
+
+        .meaning {
+            font-size: 0.75rem;
+            background: #222;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .details { font-size: 0.9rem; color: #555; line-height: 1.4; margin: 0; }
+        
+        .more-info {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            animation: fadeIn 0.4s;
+        }
+        
+        .card.active .more-info { display: block; }
+        
+        .click-hint {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .card.active .click-hint { display: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .code-block {
+            background: #2d3436;
+            color: #00cec9;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            word-wrap: break-word;
+        }
+              /* ক্লোজ বাটন */
+        .close-card {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+            line-height: 30px;
+        }
+        .card.active .close-card { display: block; }
+
+        /* ================== কুইজ সেকশন ================== */
+        #quiz-zone {
+            margin-top: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .question-box {
+            background: #f1f3f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .question-text { font-weight: 700; margin-bottom: 10px; }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .options input { margin-right: 10px; transform: scale(1.2); }
+
+        .correct { background-color: #d4edda !important; border: 1px solid #c3e6cb !important; color: #155724; }
+        .wrong { background-color: #f8d7da !important; border: 1px solid #f5c6cb !important; color: #721c24; }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* ================== প্র্যাক্টিক্যাল প্র্যাকটিস (এডিটর) ================== */
+        #code-editor {
+            margin-top: 50px;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        textarea {
+            width: 100%;
+            background: #111;
+            color: #0f0;
+            height: 250px;
+            padding: 15px;
+            font-family: monospace;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 250px;
+            background: white;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        footer { text-align: center; color: white; padding: 30px; margin-top: 30px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Tikarkhanji <span>JNYCTSD</span></div>
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#html-learn" onclick="toggleMenu()">HTML শেখা</a>
+            <a href="#css-learn" onclick="toggleMenu()">CSS শেখা</a>
+            <a href="#quiz-zone" onclick="toggleMenu()">প্র্যাকটিস কুইজ</a>
+            <a href="#code-editor" onclick="toggleMenu()">Practical Practice</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1 class="institute-name">Tikarkhanji JNYCTSD</h1>
+        <div class="tagline">এলাকার সর্ববৃহৎ কম্পিউটার ট্রেনিং সেন্টার</div>
+    </div>
+  <div class="container">
+        <div id="html-learn">
+            <div class="section-header">HTML শেখা (৩০টি ট্যাগ)</div>
+            <p style="text-align:center; color:white; font-size:0.9rem; margin-bottom:15px;">কার্ডে ক্লিক করে বিস্তারিত দেখুন</p>
+            
+            <div class="grid-container">
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;h1&gt;<span class="meaning">হেডিং</span></h3><p class="details">সবচেয়ে বড় শিরোনাম।</p><div class="more-info"><div class="code-block">&lt;h1&gt;Text&lt;/h1&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;p&gt;<span class="meaning">প্যারা</span></h3><p class="details">অনুচ্ছেদ লেখার জন্য।</p><div class="more-info"><div class="code-block">&lt;p&gt;Text&lt;/p&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;b&gt;<span class="meaning">বোল্ড</span></h3><p class="details">লেখা মোটা করতে।</p><div class="more-info"><div class="code-block">&lt;b&gt;Bold&lt;/b&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;i&gt;<span class="meaning">ইটালিক</span></h3><p class="details">লেখা বাঁকা করতে।</p><div class="more-info"><div class="code-block">&lt;i&gt;Text&lt;/i&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;u&gt;<span class="meaning">দাগ</span></h3><p class="details">নিচে দাগ দিতে।</p><div class="more-info"><div class="code-block">&lt;u&gt;Text&lt;/u&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;br&gt;<span class="meaning">ব্রেক</span></h3><p class="details">নতুন লাইন তৈরি।</p><div class="more-info"><div class="code-block">A&lt;br&gt;B</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;hr&gt;<span class="meaning">লাইন</span></h3><p class="details">আড়াআড়ি দাগ টানা।</p><div class="more-info"><div class="code-block">&lt;hr&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;img&gt;<span class="meaning">ছবি</span></h3><p class="details">ছবি দেখানোর জন্য।</p><div class="more-info"><div class="code-block">&lt;img src="x.jpg"&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;a&gt;<span class="meaning">লিঙ্ক</span></h3><p class="details">ওয়েব লিঙ্ক তৈরি।</p><div class="more-info"><div class="code-block">&lt;a href="#"&gt;Go&lt;/a&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;div&gt;<span class="meaning">বক্স</span></h3><p class="details">সেকশন বা বিভাগ।</p><div class="more-info"><div class="code-block">&lt;div&gt;...&lt;/div&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;span&gt;<span class="meaning">স্প্যান</span></h3><p class="details">ছোট অংশের ডিজাইন।</p><div class="more-info"><div class="code-block">&lt;span&gt;..&lt;/span&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;ul&gt;<span class="meaning">বুলেট</span></h3><p class="details">আন-অর্ডারড লিস্ট।</p><div class="more-info"><div class="code-block">&lt;ul&gt;..&lt;/ul&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;ol&gt;<span class="meaning">ক্রম</span></h3><p class="details">অর্ডারড লিস্ট (১,২)।</p><div class="more-info"><div class="code-block">&lt;ol&gt;..&lt;/ol&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;li&gt;<span class="meaning">লিস্ট</span></h3><p class="details">লিস্টের আইটেম।</p><div class="more-info"><div class="code-block">&lt;li&gt;Item&lt;/li&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;table&gt;<span class="meaning">টেবিল</span></h3><p class="details">টেবিল তৈরি করতে।</p><div class="more-info"><div class="code-block">&lt;table&gt;..&lt;/table&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;tr&gt;<span class="meaning">রো</span></h3><p class="details">টেবিলের সারি।</p><div class="more-info"><div class="code-block">&lt;tr&gt;..&lt;/tr&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;td&gt;<span class="meaning">ডাটা</span></h3><p class="details">টেবিলের ঘর।</p><div class="more-info"><div class="code-block">&lt;td&gt;..&lt;/td&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;th&gt;<span class="meaning">হেড</span></h3><p class="details">টেবিলের শিরোনাম।</p><div class="more-info"><div class="code-block">&lt;th&gt;..&lt;/th&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;form&gt;<span class="meaning">ফর্ম</span></h3><p class="details">ইউজার ফর্ম।</p><div class="more-info"><div class="code-block">&lt;form&gt;..&lt;/form&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;input&gt;<span class="meaning">ইনপুট</span></h3><p class="details">লেখা নেওয়ার বক্স।</p><div class="more-info"><div class="code-block">&lt;input type="text"&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;button&gt;<span class="meaning">বাটন</span></h3><p class="details">ক্লিক বাটন।</p><div class="more-info"><div class="code-block">&lt;button&gt;Ok&lt;/button&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;textarea&gt;<span class="meaning">বড় বক্স</span></h3><p class="details">মন্তব্য লেখার বক্স।</p><div class="more-info"><div class="code-block">&lt;textarea&gt;&lt;/textarea&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;select&gt;<span class="meaning">বাছাই</span></h3><p class="details">ড্রপডাউন লিস্ট।</p><div class="more-info"><div class="code-block">&lt;select&gt;..&lt;/select&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;option&gt;<span class="meaning">অপশন</span></h3><p class="details">বাছাইয়ের অপশন।</p><div class="more-info"><div class="code-block">&lt;option&gt;A&lt;/option&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;label&gt;<span class="meaning">নাম</span></h3><p class="details">ইনপুটের নাম।</p><div class="more-info"><div class="code-block">&lt;label&gt;Name&lt;/label&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;iframe&gt;<span class="meaning">ফ্রেম</span></h3><p class="details">ওয়েবপেজ এমবেড।</p><div class="more-info"><div class="code-block">&lt;iframe src=""&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;video&gt;<span class="meaning">ভিডিও</span></h3><p class="details">ভিডিও দেখানো।</p><div class="more-info"><div class="code-block">&lt;video src=""&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;audio&gt;<span class="meaning">অডিও</span></h3><p class="details">শব্দ শোনানো।</p><div class="more-info"><div class="code-block">&lt;audio src=""&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;mark&gt;<span class="meaning">মার্ক</span></h3><p class="details">হাইলাইট করা।</p><div class="more-info"><div class="code-block">&lt;mark&gt;Hi&lt;/mark&gt;</div></div></div>
+                <div class="card html-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>&lt;small&gt;<span class="meaning">ছোট</span></h3><p class="details">ছোট লেখা।</p><div class="more-info"><div class="code-block">&lt;small&gt;Hi&lt;/small&gt;</div></div></div>
+            </div>
+        </div>
+
+        <div id="css-learn">
+            <div class="section-header">CSS শেখা (২৫টি প্রপার্টি)</div>
+            <div class="grid-container">
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>color<span class="meaning">রং</span></h3><p class="details">লেখার রং।</p><div class="more-info"><div class="code-block">color: red;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>background<span class="meaning">পটভূমি</span></h3><p class="details">পিছনের রং।</p><div class="more-info"><div class="code-block">background: blue;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>font-size<span class="meaning">আকার</span></h3><p class="details">ফন্টের সাইজ।</p><div class="more-info"><div class="code-block">font-size: 20px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>font-family<span class="meaning">ফন্ট</span></h3><p class="details">ফন্টের স্টাইল।</p><div class="more-info"><div class="code-block">font-family: Arial;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>text-align<span class="meaning">স্থান</span></h3><p class="details">লেখার অবস্থান।</p><div class="more-info"><div class="code-block">text-align: center;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>width<span class="meaning">প্রস্থ</span></h3><p class="details">চওড়া মাপ।</p><div class="more-info"><div class="code-block">width: 100px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>height<span class="meaning">উচ্চতা</span></h3><p class="details">লম্বা মাপ।</p><div class="more-info"><div class="code-block">height: 50px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>margin<span class="meaning">বাইরে</span></h3><p class="details">বাইরের দূরত্ব।</p><div class="more-info"><div class="code-block">margin: 10px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>padding<span class="meaning">ভিতরে</span></h3><p class="details">ভিতরের দূরত্ব।</p><div class="more-info"><div class="code-block">padding: 10px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>border<span class="meaning">বর্ডার</span></h3><p class="details">চারপাশে দাগ।</p><div class="more-info"><div class="code-block">border: 1px solid;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>border-radius<span class="meaning">গোল</span></h3><p class="details">কোণা গোল।</p><div class="more-info"><div class="code-block">border-radius: 5px;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>display<span class="meaning">দৃশ্য</span></h3><p class="details">ব্লক/ইনলাইন।</p><div class="more-info"><div class="code-block">display: block;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>font-weight<span class="meaning">মোটা</span></h3><p class="details">বোল্ড করা।</p><div class="more-info"><div class="code-block">font-weight: bold;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>opacity<span class="meaning">স্বচ্ছ</span></h3><p class="details">আবছা ভাব।</p><div class="more-info"><div class="code-block">opacity: 0.5;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>cursor<span class="meaning">মাউস</span></h3><p class="details">কার্সার আইকন।</p><div class="more-info"><div class="code-block">cursor: pointer;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>box-shadow<span class="meaning">ছায়া</span></h3><p class="details">বক্সের শ্যাডো।</p><div class="more-info"><div class="code-block">box-shadow: 2px 2px black;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>overflow<span class="meaning">ফ্লো</span></h3><p class="details">বাড়তি অংশ।</p><div class="more-info"><div class="code-block">overflow: hidden;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>position<span class="meaning">পজিশন</span></h3><p class="details">অবস্থান ফিক্স।</p><div class="more-info"><div class="code-block">position: absolute;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>top<span class="meaning">উপর</span></h3><p class="details">উপর থেকে।</p><div class="more-info"><div class="code-block">top: 0;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>left<span class="meaning">বাম</span></h3><p class="details">বাম থেকে।</p><div class="more-info"><div class="code-block">left: 0;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>z-index<span class="meaning">স্তর</span></h3><p class="details">লেয়ার।</p><div class="more-info"><div class="code-block">z-index: 10;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>transition<span class="meaning">গতি</span></h3><p class="details">স্মুথ এফেক্ট।</p><div class="more-info"><div class="code-block">transition: 0.3s;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>transform<span class="meaning">রূপ</span></h3><p class="details">ঘোরানো/বড় করা।</p><div class="more-info"><div class="code-block">transform: scale(1.1);</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>list-style<span class="meaning">লিস্ট</span></h3><p class="details">বুলেট বাদ।</p><div class="more-info"><div class="code-block">list-style: none;</div></div></div>
+                <div class="card css-card" onclick="toggleCard(this)"><button class="close-card">&times;</button><h3>flex<span class="meaning">ফ্লেক্স</span></h3><p class="details">সহজ লেআ
